@@ -1,13 +1,14 @@
 # from django.shortcuts import render
 # from django.http import JsonResponse
 from students.models import Student
-from .serializers import StudentSerializer, EmployeeSerializer, ProductSerializer
+from .serializers import StudentSerializer, EmployeeSerializer, ProductSerializer, TodoSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from employees.models import Employee
 from products.models import Product
+from todolist.models import Todo
 from rest_framework import mixins, generics
 
 
@@ -106,7 +107,7 @@ class EmployeesDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
-#Class based views using mixins and generics
+#Class based views using mixins 
 class Products(mixins.ListModelMixin,
                mixins.CreateModelMixin,
                generics.GenericAPIView):
@@ -134,4 +135,17 @@ class ProductsDetail(mixins.RetrieveModelMixin,
         return self.update(request, pk=pk)
 
     def delete(self, request, pk):
-        return self.destroy(request, pk=pk)    
+        return self.destroy(request, pk=pk)
+
+
+#Class based views using generics
+class Todos(generics.ListCreateAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+
+class TodosDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+    look_up_field = 'pk'  
+
