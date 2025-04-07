@@ -3,5 +3,8 @@ from . import views
 
 urlpatterns = [
     path('students/', views.studentsView),
-    path('students/<int:pk>/', views.studentsDetail),  # Add this line for detail view
+    path('students/<int:pk>/', views.studentsDetail),
+
+    path('employees/', views.Employees.as_view()),
+    path('employees/<int:pk>/', views.EmployeesDetail.as_view()),
 ]
