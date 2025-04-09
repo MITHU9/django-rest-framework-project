@@ -14,6 +14,7 @@ from blogs.serializers import BlogSerializer, CommentSerializer
 from rest_framework import mixins, generics
 from .paginations import CustomPageNumberPagination
 from products.filters import ProductFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 
 
@@ -159,6 +160,9 @@ class TodosDetail(generics.RetrieveUpdateDestroyAPIView):
 class BlogsView(generics.ListCreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['title', 'content']
+    ordering_fields = ['id']
 
 class CommentsView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
