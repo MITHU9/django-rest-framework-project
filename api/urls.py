@@ -13,4 +13,7 @@ urlpatterns = [
 
     path('todos/', views.Todos.as_view()),
     path('todos/<int:pk>/', views.TodosDetail.as_view()),
+
+    path('blogs/', views.BlogsView.as_view()),
+    path('comments/', views.CommentsView.as_view()),
 ]

@@ -9,6 +9,8 @@ from rest_framework.views import APIView
 from employees.models import Employee
 from products.models import Product
 from todolist.models import Todo
+from blogs.models import Blog, Comment
+from blogs.serializers import BlogSerializer, CommentSerializer
 from rest_framework import mixins, generics
 
 
@@ -147,5 +149,13 @@ class Todos(generics.ListCreateAPIView):
 class TodosDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
-    look_up_field = 'pk'  
+    lookup_field = 'pk'  
 
+
+class BlogsView(generics.ListCreateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+class CommentsView(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
