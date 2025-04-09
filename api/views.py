@@ -12,6 +12,7 @@ from todolist.models import Todo
 from blogs.models import Blog, Comment
 from blogs.serializers import BlogSerializer, CommentSerializer
 from rest_framework import mixins, generics
+from .paginations import CustomPageNumberPagination
 
 
 
@@ -115,6 +116,7 @@ class Products(mixins.ListModelMixin,
                generics.GenericAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    pagination_class = CustomPageNumberPagination
 
     def get(self, request):
         return self.list(request)
@@ -159,3 +161,13 @@ class BlogsView(generics.ListCreateAPIView):
 class CommentsView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+class BlogsDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    lookup_field = 'pk'  
+
+class CommentsDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    lookup_field = 'pk'      
