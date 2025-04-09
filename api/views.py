@@ -13,6 +13,7 @@ from blogs.models import Blog, Comment
 from blogs.serializers import BlogSerializer, CommentSerializer
 from rest_framework import mixins, generics
 from .paginations import CustomPageNumberPagination
+from products.filters import ProductFilter
 
 
 
@@ -117,6 +118,7 @@ class Products(mixins.ListModelMixin,
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     pagination_class = CustomPageNumberPagination
+    filterset_class = ProductFilter
 
     def get(self, request):
         return self.list(request)
